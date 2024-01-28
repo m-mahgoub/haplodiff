@@ -8,7 +8,7 @@ results/*
 testing/
 testing*
 test
-test*
+tes.sh
 *.pyc
 stub-data
 conf/dhslab_test.config
