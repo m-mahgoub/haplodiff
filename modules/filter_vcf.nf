@@ -14,10 +14,11 @@ process filter_vcf {
 
     script:
         """
+        mkdir -p tmp
         tabix --csi -p vcf ${vcf}
         modify_vcf_header.py --in_vcf ${vcf} --out_vcf ${meta.id}.header_modified.vcf
         bcftools view --threads ${task.cpus} -H ${vcf} chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 chr11 chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chr20 chr21 chr22 chrX chrY >> ${meta.id}.header_modified.vcf
-        bcftools sort -o ${meta.id}.sorted.for_pop.vcf ${meta.id}.header_modified.vcf
+        bcftools sort --temp-dir tmp -o ${meta.id}.sorted.for_pop.vcf ${meta.id}.header_modified.vcf
         bedtools intersect -sorted -header -a ${meta.id}.sorted.for_pop.vcf -b ${params.population_snps_vcf} -g ${params.vcf_genome} -wa -u > ${meta.id}.only_pop.vcf
         bgzip -c ${meta.id}.only_pop.vcf > ${meta.id}.only_pop.vcf.gz
         tabix -p vcf ${meta.id}.only_pop.vcf.gz
