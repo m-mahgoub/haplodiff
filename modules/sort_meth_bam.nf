@@ -13,11 +13,13 @@ process sort_meth_bam {
 
     script:
         """
+        mkdir -p tmp
         java -jar /storage1/fs1/dspencer/Active/spencerlab/mohamed/apps/picard/picard.jar SortSam \\
         I=${meth_bam} \\
         O=${meta.id}.nsorted.bam \\
         R=${params.meth_fasta} \\
-        SORT_ORDER=queryname
+        SORT_ORDER=queryname \\
+        TMP_DIR=tmp/
         """
 
 }
