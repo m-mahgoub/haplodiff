@@ -44,7 +44,6 @@ def main(args):
     meth_biased_genes = meth_biased_genes.drop_duplicates().groupby(['annot.gene_id', 'annot.symbol'])['pos'].agg(';'.join).reset_index()
     meth_biased_genes.columns = ['gene_id', 'gene_symbol', 'meth_snp_position']
     df = meth_biased_genes.merge(rna_biased_genes,how='inner')
-    df['chr'] = df['meth_snp_position'].apply(lambda x: 'chr21' in x)
     rna_df['gene_id_exon'] = rna_df['gene_id_exon'].astype(float).astype(int)
     meth_df['annot.gene_id'] = meth_df['annot.gene_id'].astype(float).astype(int)
     rna_df.to_csv(rna_table_output,sep='\t',header=True, index=False)

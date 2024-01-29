@@ -8,6 +8,7 @@ include { run_snpdep            } from './modules/run_snpdep'
 include { make_rna_report       } from './modules/make_rna_report'
 include { annotate_epiallele    } from './modules/annotate_epiallele'
 include { make_meth_report      } from './modules/make_meth_report'
+include { make_final_repor      } from './modules/make_final_report'
 
 Channel.fromPath(params.input)
     .splitCsv(header:true, sep:',')
@@ -51,30 +52,6 @@ Channel.fromPath(params.input)
     // .dump()
     .set { ch_vcf }
 
-
-process make_final_report {
-    container 'mdivr/basic-tools:v2'
-    cpus 4
-    memory '64 GB'
-
-    input:
-        tuple val(meta), path (rna_vaf_report), path (meth_vaf_report)
-    output:
-        publishDir "${params.outdir}/${meta.id}"
-        tuple val(meta), path ("${meta.id}*_bias.txt"), emit: final_reports
-
-    script:
-        """
-        make_final_report.py \\
-        --rna_vaf_threshold ${params.rna_vaf_threshold} \\
-        --meth_pval_threshold ${params.meth_pval_threshold} \\
-        --rna_report ${rna_vaf_report} \\
-        --meth_report ${meth_vaf_report} \\
-        --rna_table_output ${meta.id}.rna_bias.txt \\
-        --meth_table_output ${meta.id}.meth_bias.txt \\
-        --genes_table_output ${meta.id}.genes_with_meth_rna_bias.txt
-        """
-}
 
 workflow {
 
