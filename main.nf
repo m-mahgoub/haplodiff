@@ -8,7 +8,7 @@ include { run_snpdep            } from './modules/run_snpdep'
 include { make_rna_report       } from './modules/make_rna_report'
 include { annotate_epiallele    } from './modules/annotate_epiallele'
 include { make_meth_report      } from './modules/make_meth_report'
-include { make_final_repor      } from './modules/make_final_report'
+include { make_final_report     } from './modules/make_final_report'
 
 Channel.fromPath(params.input)
     .splitCsv(header:true, sep:',')
