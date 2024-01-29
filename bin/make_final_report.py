@@ -31,8 +31,8 @@ def main(args):
     rna_biased_genes.columns = ['gene_id', 'gene_symbol', 'rna_snp_position']
     meth_df = pd.read_csv(meth_report,sep='\t')
     meth_df  = meth_df .drop_duplicates(subset=['chr', 'start', 'end'])
-    meth_df = meth_df[((meth_df['FEp+'] <= meth_pval_threshold) \
-    | (meth_df['FEp-'] <= meth_pval_threshold)) \
+    meth_df = meth_df[((meth_df['FEp+'] < meth_pval_threshold) \
+    | (meth_df['FEp-'] < meth_pval_threshold)) \
     & (meth_df['annot.gene_id'] != '.') \
     & (meth_df['chr'] != 'chrX') \
     & (meth_df['chr'] != 'chrY') ]
