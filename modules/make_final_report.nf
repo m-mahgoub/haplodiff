@@ -6,7 +6,7 @@ process make_final_report {
     input:
         tuple val(meta), path (rna_vaf_report), path (meth_vaf_report)
     output:
-        publishDir "${params.outdir}/${meta.id}"
+        publishDir "${params.outdir}/${meta.id}", mode: 'copy'
         tuple val(meta), path ("${meta.id}*_bias.txt"), emit: final_reports
 
     script:

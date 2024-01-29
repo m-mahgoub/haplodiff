@@ -9,7 +9,7 @@ process filter_vcf {
     // path (fastq2)
 
     output:
-        publishDir "${params.outdir}/${meta.id}/filtered_vcf"
+        publishDir "${params.outdir}/${meta.id}/filtered_vcf", mode: 'copy'
         tuple val(meta), path ("${meta.id}.filtered.*"), emit: filter_vcf
 
     script:

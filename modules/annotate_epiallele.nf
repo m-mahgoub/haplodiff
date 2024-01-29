@@ -6,7 +6,7 @@ process annotate_epiallele {
     input:
         tuple val(meta), path (epiallele_txt)
     output:
-        publishDir "${params.outdir}/${meta.id}/epialleleR"
+        publishDir "${params.outdir}/${meta.id}/epialleleR", mode: 'copy'
         tuple val(meta), path (epiallele_txt), path ("${meta.id}.hapmeth.annotated.txt"), emit: annotated_epiallele_txt
 
     script:

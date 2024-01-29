@@ -6,7 +6,7 @@ process run_snpdep {
     input:
         tuple val(meta), path (rna_bam), path (rna_bam_index), path (rna_roi_vcf)
     output:
-        publishDir "${params.outdir}/${meta.id}/snpdep"
+        publishDir "${params.outdir}/${meta.id}/snpdep", mode: 'copy'
         tuple val(meta), path ("${meta.id}.rna_roi.annotated.vcf"), emit: snpdep_vcf
         tuple val(meta), path ("${meta.id}.rna_roi.annotated.txt"), emit: snpdep_txt
 
