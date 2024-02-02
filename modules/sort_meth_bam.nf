@@ -7,7 +7,7 @@ process sort_meth_bam {
         tuple val(meta), path (meth_bam), path (meth_bam_index)
 
     output:
-        publishDir "${params.outdir}/${meta.id}/sorted_meth_bam", mode: 'copy'
+        publishDir "${params.outdir}/${meta.id}/sorted_meth_bam", mode: 'copy', enabled: false
         tuple val(meta), path ("${meta.id}.nsorted.bam"), emit: meth_sorted_bam
 
 

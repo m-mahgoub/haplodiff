@@ -6,7 +6,7 @@ process run_epiallele {
     input:
         tuple val(meta), path (meth_sorted_bam), path (meth_roi_vcf)
     output:
-        publishDir "${params.outdir}/${meta.id}/epialleleR", mode: 'copy'
+        publishDir "${params.outdir}/${meta.id}/epialleleR", mode: 'copy', enabled: false
         tuple val(meta), path ("${meta.id}.hapmeth.txt"), emit: epiallele_txt
 
     script:

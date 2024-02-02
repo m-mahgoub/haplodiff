@@ -6,7 +6,7 @@ process make_meth_report {
     input:
         tuple val(meta), path (epiallele_txt), path (annotated_epiallele_txt)
     output:
-        publishDir "${params.outdir}/${meta.id}/epialleleR", mode: 'copy'
+        publishDir "${params.outdir}/${meta.id}/epialleleR", mode: 'copy', enabled: false
         tuple val(meta), path ("${meta.id}.meth_vaf_report.txt"), emit: meth_vaf_report
 
     script:

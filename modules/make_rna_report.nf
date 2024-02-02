@@ -6,7 +6,7 @@ process make_rna_report {
     input:
         tuple val(meta), path (rna_snpdep_txt)
     output:
-        publishDir "${params.outdir}/${meta.id}/snpdep", mode: 'copy'
+        publishDir "${params.outdir}/${meta.id}/snpdep", mode: 'copy', enabled: false
         tuple val(meta), path ("${meta.id}.rna_vaf_report.txt"), emit: rna_vaf_report
 
     script:
